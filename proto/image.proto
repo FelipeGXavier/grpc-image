@@ -3,7 +3,7 @@ syntax = "proto3";
 package processor;
 
 message Point {
-    number pixelPoint = 1;
+    int32 pixelPoint = 1;
 }
 
 service ImageProcessor {
@@ -11,5 +11,5 @@ service ImageProcessor {
 }
 
 message AveragePixel {
-    number average = 1;
+    int32 average = 1;
 }
