@@ -7,7 +7,7 @@ message Point {
 }
 
 service ImageProcessor {
-    rpc GetAveragePixel(stream Point) returns (stream AveragePixel) {}
+    rpc GetAveragePixel(stream Point) returns (AveragePixel) {}
 }
 
 message AveragePixel {
