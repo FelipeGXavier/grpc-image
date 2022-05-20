@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package processor;
+
+message Point {
+    number pixelPoint = 1;
+}
+
+service ImageProcessor {
+    rpc GetAveragePixel(stream Point) returns (stream AveragePixel) {}
+}
+
+message AveragePixel {
+    number average = 1;
+}
