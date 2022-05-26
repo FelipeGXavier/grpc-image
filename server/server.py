@@ -12,6 +12,7 @@ class ImageProcessor(pb2_grpc.ImageProcessorServicer):
     def GetAveragePixel(self, request, context):
         pixels = request.pixelPoint
         average = floor(sum(pixels) / len(pixels))
+        print('Request received', pixels)
         return pb2.AveragePixel(average=average)
 
 
