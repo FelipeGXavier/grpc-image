@@ -3,11 +3,11 @@ syntax = "proto3";
 package processor;
 
 message Point {
-    int32 pixelPoint = 1;
+    repeated int32 pixelPoint = 1;
 }
 
 service ImageProcessor {
-    rpc GetAveragePixel(stream Point) returns (AveragePixel) {}
+    rpc GetAveragePixel(Point) returns (AveragePixel) {}
 }
 
 message AveragePixel {
