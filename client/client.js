@@ -26,8 +26,8 @@ const client = new grpService.ImageProcessor('localhost:50051', grpc.credentials
 
 const run = async () => {
     const matrixImage = getMatrix()
-    const transformedImage = transformImage(matrixImage, client)
-    console.log(await transformedImage)
+    const transformedImage = await transformImage(matrixImage, client)
+    console.log(transformedImage[0])
 }
 
 run()
