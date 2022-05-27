@@ -38,18 +38,23 @@ const createPromisesFromMatrix = (matrix, startOffset, rpcClient = null) => {
     return promises
 }
 
-
 const mountNewMatrix = (data) => {
-    const matrix = Array(800).fill(Array(800))
-    for (let i = 0; i < data.length; i++) {
-        const average = parseInt(data[i].average)
-        const row = parseInt(data[i].row)
-        const cols = data[i].cols.split(";")
-        for (let x = parseInt(cols[0]); x <= parseInt(cols[1]); x++) {
-            matrix[row][x] = average
-        }
+    const generatedPixels = []
+    const pixels = data.map(x => x.average)
+    for (let i = 0; i < pixels.length; i++) {
+        const newPixels = Array(4).fill(pixels[i])
+        generatedPixels.push(...newPixels)
     }
-    return matrix
+    const image = []
+    let idx = 0
+    for (let i = 0; i < 800; i++) {
+        const line = []
+        for (let x = 0; x < 800; x++) {
+            line.push(generatedPixels[idx++])
+        }
+        image.push(line)
+    }
+    return image
 }
 
 const transformImage = async (matrixImage, rpcClient) => {
@@ -57,6 +62,9 @@ const transformImage = async (matrixImage, rpcClient) => {
     const secondHalfMatrix = matrixImage.slice(400, 800)
     const promises = [...createPromisesFromMatrix(firstHalfMatrix, 0), ...createPromisesFromMatrix(secondHalfMatrix, 400, rpcClient)]
     const result = await Promise.all(promises)
+    result.sort(function (a, b) {
+        return a.row - b.row || a.cols - b.cols
+    })
     return mountNewMatrix(result)
 }
 

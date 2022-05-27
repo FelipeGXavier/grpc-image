@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-
 const readImage = () => {
     const imagePath = path.resolve('../', 'bin/input_image.pgm')
     const rawImage = fs.readFileSync(imagePath).toString()
